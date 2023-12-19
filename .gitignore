@@ -1,0 +1,4 @@
+libsllist.so
+SLList.o
+SLList_test
+*.swp
