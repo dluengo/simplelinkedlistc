@@ -19,6 +19,8 @@ void SLList_Destroy(SLList_t *self);
 
 int SLList_Append(SLList_t *self, void *data);
 
+int SLList_Remove(SLList_t *self, unsigned int pos);
+
 void *SLList_Access(SLList_t *self, unsigned int pos);
 
 unsigned int SLList_Size(SLList_t *self);

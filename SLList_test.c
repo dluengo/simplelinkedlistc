@@ -82,5 +82,26 @@ int main(int argc, char *argv[]) {
     SLList_Destroy(one_elem_list);
     SLList_Destroy(two_elem_list);
 
+    // Create some new lists.
+    list1 = SLList_Create();
+    assert(list1 != NULL);
+    list2 = SLList_Create();
+    assert(list2 != NULL);
+
+    // Add some values.
+    const int NUM_VALUES = 10;
+
+    assert(NUM_VALUES <= VEC_SIZE);
+    for (idx = 0; idx < NUM_VALUES; idx++) {
+        SLList_Append(list1, &vec[idx]);
+    }
+
+    // Remove some values. Last, first and something in between.
+    SLList_Remove(list1, NUM_VALUES-1);
+    SLList_Remove(list1, 0);
+    SLList_Remove(list1, NUM_VALUES-2);
+    SLList_Remove(list1, NUM_VALUES-5);
+    assert(SLList_Size(list1) == NUM_VALUES-4);
+
     return 0;
 }

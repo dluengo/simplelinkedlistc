@@ -74,12 +74,11 @@ void SLList_Destroy(SLList_t *self) {
 
 int SLList_Append(SLList_t *self, void *data) {
     struct node_t *last_node, *new_node;
+    
     assert(self != NULL && data != NULL);
 
     new_node = Node_Create();
-    if (new_node == NULL) {
-        return -1;
-    }
+    assert(new_node != NULL);
 
     new_node->data = data;
     new_node->next = NULL;
@@ -95,8 +94,31 @@ int SLList_Append(SLList_t *self, void *data) {
     return 0; 
 }
 
+int SLList_Remove(SLList_t *self, unsigned int pos) {
+    struct node_t *node, *prev_node;
+    unsigned int idx;
+
+    assert(self != NULL && pos < self->size);
+
+    node = self->head;
+    prev_node = NULL;
+    for (idx = 0; idx < pos; idx++) {
+        prev_node = node;
+        node = node->next;
+    }
+
+    if (prev_node != NULL) {
+        prev_node->next = node->next;
+    }
+
+    Node_Destroy(node);
+    self->size--;
+    return 0;
+}
+
 void *SLList_Access(SLList_t *self, unsigned int pos) {
     struct node_t *node;
+
     assert(self != NULL && pos < self->size);
 
     for (node = self->head; pos != 0; node = node->next, pos--);
